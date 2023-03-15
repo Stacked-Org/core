@@ -1,16 +1,15 @@
-name: stacked_core
+name: stacked_shared
 description: Shared code between the stacked packages.
-version: 1.2.4
-homepage: https://stacked.filledstacks.com/
-repository: https://github.com/Stacked-Org/core.git
-issue_tracker: https://github.com/Stacked-Org/framework/issues
+version: 1.3.0
+homepage: https://github.com/FilledStacks/stacked/tree/master/packages/stacked_shared
 
 environment:
   sdk: '>=2.16.2 <3.0.0'
 
+
 dependencies:
-  get_it: ^7.2.0
+  get_it: ^7.1.4
 
 dev_dependencies:
-  lints: ^2.0.0
-  test: ^1.21.0
+  lints: ^1.0.0
+  test: ^1.16.0
