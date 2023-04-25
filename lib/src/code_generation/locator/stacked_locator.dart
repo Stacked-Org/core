@@ -398,7 +398,7 @@ class StackedLocator {
   /// provide a [disposingFunction]. This function overrides the disposing
   /// you might have provided when registering.
   void resetLazySingleton<T extends Object>(
-          {Object? instance,
+          {T? instance,
           String? instanceName,
           void Function(T)? disposingFunction}) =>
       locator.resetLazySingleton<T>(
