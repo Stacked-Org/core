@@ -1,3 +1,6 @@
+## [1.3.2](https://github.com/Stacked-Org/core/pull/3)
+- Fixes argument mismatch with get_it
+
 ## [1.3.1](https://github.com/Stacked-Org/core/compare/v1.3.0...v1.3.1) (2023-04-12)
 
 
