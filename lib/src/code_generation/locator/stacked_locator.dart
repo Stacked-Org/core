@@ -402,7 +402,7 @@ class StackedLocator {
           String? instanceName,
           void Function(T)? disposingFunction}) =>
       locator.resetLazySingleton<T>(
-        instance: instance,
+        instance: instance as T?, // https://github.com/Stacked-Org/stacked/issues/933#issuecomment-1546029160
         instanceName: instanceName,
         disposingFunction: disposingFunction,
       );
