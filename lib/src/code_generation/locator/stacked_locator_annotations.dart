@@ -118,6 +118,7 @@ class FactoryParam {
 const factoryParam = FactoryParam._();
 
 /// Registers the type passed in to be presolved using the function passed in
+@Deprecated('Use InitializableSingleton instead.')
 class Presolve extends DependencyRegistration {
   /// The static instance Future function to use for resolving the type registered
   final Future Function() presolveUsing;
