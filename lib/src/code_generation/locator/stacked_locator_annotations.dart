@@ -1,7 +1,12 @@
 import 'dart:async';
 
-/// The class to describe a service registration on the get_it locator
-
+/// `Environment` is a class that provides preset constants to identify
+/// different types of environments where your app might be running.
+///
+/// Currently, it provides the following presets:
+/// - `dev` for development environment
+/// - `prod` for production environment
+/// - `test` for testing environment
 class Environment {
   const Environment._();
 
@@ -15,6 +20,21 @@ class Environment {
   static const test = 'test';
 }
 
+/// `DependencyRegistration` is an abstract class that provides a common structure
+/// for registering dependencies with the `get_it` locator. Different subclasses
+/// provide different registration methods, such as Singleton, LazySingleton, Factory, etc.
+///
+/// It contains several properties that subclasses can use to configure the registration:
+///
+/// - `classType`: The concrete class type that should be registered.
+///
+/// - `asType`: An optional abstract type or interface that `classType` can be registered as.
+///
+/// - `resolveUsing`: An optional function to generate an instance of `classType`.
+///
+/// - `dispose`: An optional function that can be called to dispose of the registered instance.
+///
+/// - `param1`, `param2`: Optional types that can be used by a factory function to create an instance.
 class DependencyRegistration {
   /// The type of the service to register
   final Type? classType;
@@ -42,7 +62,21 @@ class DependencyRegistration {
   });
 }
 
-/// Registers the type passed in as a singleton instance in the get_it locator
+/// `Singleton` is a class that extends [DependencyRegistration]. It provides a way
+/// to register an object as a Singleton to the `get_it` locator.
+///
+/// A Singleton means the object will be instantiated during the first fetch and then will stay
+/// alive in the memory and the same instance will be returned in the subsequent fetches.
+///
+/// Parameters:
+/// - `classType`: The concrete class to be registered to the `get_it` locator.
+/// - `asType`: An abstract class or interface to map the `classType` to. This is useful when
+///              you want to abstract the concrete implementation and depend on interfaces.
+/// - `resolveUsing`: A callback that resolves the instance. If null, `classType` is instantiated directly.
+/// - `environments`: A set of environment names where this registration should be included.
+///                   Useful for conditionally including a service depending on the running environment.
+/// - `instanceName`: An optional instance name that can be used to register multiple objects of the
+///                   same type. You will need to fetch the object by instance name from the `get_it` locator.
 class Singleton extends DependencyRegistration {
   const Singleton({
     Type? classType,
@@ -59,7 +93,23 @@ class Singleton extends DependencyRegistration {
         );
 }
 
-/// Registers the type passed in as a LazySingleton instance in the get_it locator
+/// `LazySingleton` is a class that extends [DependencyRegistration]. It provides a way
+/// to register an object as a Lazy Singleton to the `get_it` locator.
+///
+/// A Lazy Singleton means the object will be instantiated during the first fetch and then will stay
+/// alive in the memory and the same instance will be returned in the subsequent fetches. The key
+/// difference between a [Singleton] and a [LazySingleton] is that a Lazy Singleton is not created
+/// until it is fetched for the first time.
+///
+/// Parameters:
+/// - `classType`: The concrete class to be registered to the `get_it` locator.
+/// - `asType`: An abstract class or interface to map the `classType` to. This is useful when
+///              you want to abstract the concrete implementation and depend on interfaces.
+/// - `resolveUsing`: A callback that resolves the instance. If null, `classType` is instantiated directly.
+/// - `environments`: A set of environment names where this registration should be included.
+///                   Useful for conditionally including a service depending on the running environment.
+/// - `instanceName`: An optional instance name that can be used to register multiple objects of the
+///                   same type. You will need to fetch the object by instance name from the `get_it` locator.
 class LazySingleton<T> extends DependencyRegistration {
   const LazySingleton({
     Type? classType,
@@ -76,7 +126,19 @@ class LazySingleton<T> extends DependencyRegistration {
         );
 }
 
-/// Registers the type passed in as a Factory in the get_it locator
+/// `Factory` is a class that extends [DependencyRegistration]. It provides a way
+/// to register an object as a Factory to the `get_it` locator.
+///
+/// A Factory means that a new instance of the object will be created each time it is fetched.
+///
+/// Parameters:
+/// - `classType`: The concrete class to be registered to the `get_it` locator.
+/// - `asType`: An abstract class or interface to map the `classType` to. This is useful when
+///              you want to abstract the concrete implementation and depend on interfaces.
+/// - `environments`: A set of environment names where this registration should be included.
+///                   Useful for conditionally including a service depending on the running environment.
+/// - `instanceName`: An optional instance name that can be used to register multiple objects of the
+///                   same type. You will need to fetch the object by instance name from the `get_it` locator.
 class Factory extends DependencyRegistration {
   const Factory({
     Type? classType,
@@ -91,7 +153,21 @@ class Factory extends DependencyRegistration {
         );
 }
 
-/// Registers the type passed in as a Factory in the get_it locator
+/// `FactoryWithParam` is a class that extends [DependencyRegistration]. It provides a way
+/// to register an object as a Factory with parameter to the `get_it` locator.
+///
+/// A Factory with parameter means that a new instance of the object will be created each time it
+/// is fetched, and the parameters will be passed to the factory function to create the instance.
+///
+/// Example:
+/// ```dart
+///   import 'package:stacked_shared/stacked_shared.dart';
+///   class FactoryService {
+///     final String? data1;
+///     final double? data2;
+///     FactoryService(@factoryParam this.data1, {@factoryParam this.data2});
+///   }
+/// ```
 class FactoryWithParam extends DependencyRegistration {
   const FactoryWithParam({
     Type? asType,
@@ -117,7 +193,6 @@ class FactoryParam {
 /// with default arguments
 const factoryParam = FactoryParam._();
 
-/// Registers the type passed in to be presolved using the function passed in
 @Deprecated('Use InitializableSingleton instead.')
 class Presolve extends DependencyRegistration {
   /// The static instance Future function to use for resolving the type registered
@@ -137,7 +212,47 @@ class Presolve extends DependencyRegistration {
         );
 }
 
-/// Registers the type passed in to be presolved using the function passed in
+/// `InitializableSingleton` is a class that extends [DependencyRegistration].
+/// It provides a way to register an object as a Singleton to the `get_it` locator.
+/// This means the object will be instantiated during the first fetch and then will stay
+/// alive in the memory and the same instance will be returned in the subsequent fetches.
+///
+/// When used with a class implementing the `InitializableDependency` interface,
+/// the `init` method of the class will be called upon registration, allowing any
+/// necessary asynchronous initialization logic to be executed before the singleton
+/// instance is fetched for the first time.
+///
+/// This is useful when you need to perform some setup or initialization tasks (like setting up a
+/// database, making a network request, etc.) before the class can be used.
+///
+/// Example:
+/// ```dart
+/// class DataCache implements InitializableDependency {
+///   // Implementation details
+///
+///   @override
+///   Future<void> init() async {
+///     // Initialization logic goes here
+///   }
+/// }
+/// ```
+/// Then register it as:
+/// ```dart
+/// InitializableSingleton(classType: DataCache)
+/// ```
+///
+/// Parameters:
+/// - `classType`: The concrete class to be registered to the `get_it` locator. This class
+///                should implement `InitializableDependency` interface.
+///
+/// - `asType`: An abstract class or interface to map the `classType` to. This is useful when
+///              you want to abstract the concrete implementation and depend on interfaces.
+///
+/// - `environments`: A set of environment names where this registration should be included.
+///                   Useful for conditionally including a service depending on the running environment.
+///
+/// - `instanceName`: An optional instance name that can be used to register multiple objects of the
+///                   same type. You will need to fetch the object by instance name from the `get_it` locator.
 class InitializableSingleton extends DependencyRegistration {
   const InitializableSingleton({
     Type? classType,
