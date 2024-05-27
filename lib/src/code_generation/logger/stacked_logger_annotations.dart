@@ -11,9 +11,16 @@ class StackedLogger {
   /// Default is true
   final bool disableReleaseConsoleOutput;
 
+  /// When set to true, console logs will not be printed while running unit
+  /// tests or integration tests
+  ///
+  /// Default is false
+  final bool disableTestsConsoleOutput;
+
   const StackedLogger({
     this.loggerOutputs = const [],
     this.logHelperName = 'getLogger',
     this.disableReleaseConsoleOutput = true,
+    this.disableTestsConsoleOutput = false,
   });
 }
