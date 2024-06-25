@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/Stacked-Org/core/compare/v1.4.0...v1.4.1) (2024-06-25)
+
+
+### Bug Fixes
+
+* add disableTestsConsoleOutput option ([#12](https://github.com/Stacked-Org/core/issues/12)) ([d5d0322](https://github.com/Stacked-Org/core/commit/d5d032273876579ccf2a393e7bfdb6de2e2d296b))
+
 # [1.4.0](https://github.com/Stacked-Org/core/compare/v1.3.2...v1.4.0) (2023-06-22)
 
 
