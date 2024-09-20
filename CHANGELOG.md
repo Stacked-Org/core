@@ -1,3 +1,10 @@
+## [1.4.2](https://github.com/Stacked-Org/core/compare/v1.4.1...v1.4.2) (2024-09-20)
+
+
+### Bug Fixes
+
+* **deps:** update dependency get_it to v8 ([#13](https://github.com/Stacked-Org/core/issues/13)) ([cb4f736](https://github.com/Stacked-Org/core/commit/cb4f736d671758464ee9fac09a845f8608dc172c))
+
 ## [1.4.1](https://github.com/Stacked-Org/core/compare/v1.4.0...v1.4.1) (2024-06-25)
 
 
