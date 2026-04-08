@@ -8,7 +8,7 @@ environment:
 
 
 dependencies:
-  get_it: ^8.0.0
+  get_it: ^9.0.0
 
 dev_dependencies:
   lints: ^5.0.0
