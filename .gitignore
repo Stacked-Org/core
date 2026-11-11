@@ -32,3 +32,6 @@ Thumbs.db
 *.iml
 .vscode/
 .vs/
+
+# Local path overrides for developing the Stacked packages together
+pubspec_overrides.yaml

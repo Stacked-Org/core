@@ -1,0 +1,22 @@
+name: stacked_test
+description: Journey tests for Stacked apps. Drive ViewModels by name, swap services for fixtures and block the network, all under flutter test.
+version: 0.1.0-beta.1
+homepage: https://stacked.filledstacks.com
+repository: https://github.com/Stacked-Org/core/tree/main/packages/stacked_test
+
+environment:
+  sdk: ">=3.5.0 <4.0.0"
+  flutter: ">=3.24.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_test:
+    sdk: flutter
+  stacked: ^3.6.0-beta.1
+  stacked_shared: ^1.5.0-beta.1
+  collection: ^1.18.0
+  meta: ^1.15.0
+
+dev_dependencies:
+  flutter_lints: ^6.0.0

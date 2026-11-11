@@ -1,3 +1,14 @@
+## 1.5.0-beta.1 (2026-11-11)
+
+### Features
+
+* Adds `package:stacked_shared/stacked_introspection.dart`, the shared contract for agent testing: `StackedIntrospector`, `StackedNode`, action specs, inputs and resolution, `StackedJson`, lent actions and error codes.
+* Exports `Hidden` from `stacked_shared.dart` to keep a ViewModel member out of introspection.
+
+### Breaking for old toolchains
+
+* The Dart SDK lower bound is now 3.0.0.
+
 ## [1.4.2](https://github.com/Stacked-Org/core/compare/v1.4.1...v1.4.2) (2024-09-20)
 
 
